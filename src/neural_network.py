@@ -24,16 +24,14 @@ class NeuralNetwork:
     def genome_to_weights(self):
         weights = []
         for i in range(0, len(self.genome), 2):
-            weight = int(self.genome[i: i + 2], 16) / \
-                255  # Normalize to [0, 1]
+            weight = int(self.genome[i : i + 2], 16) / 255  # Normalize to [0, 1]
             weight = weight * 8 - 4  # Scale to [-4, 4]
             weights.append(weight)
         return weights
 
     def activate(self, inputs):
         if len(inputs) != self.input_size:
-            raise ValueError(
-                f"Expected {self.input_size} inputs, got {len(inputs)}")
+            raise ValueError(f"Expected {self.input_size} inputs, got {len(inputs)}")
 
         # Calculate hidden layer outputs
         hidden = []

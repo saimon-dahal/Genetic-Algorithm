@@ -1,5 +1,6 @@
 import random
-from neural_network import NeuralNetwork
+
+from src.neural_network import NeuralNetwork
 
 
 class Creature:
@@ -20,15 +21,14 @@ class Creature:
         input_size = 7
         hidden_size = 4
         output_size = 8
-        required_weights = (input_size * hidden_size) + \
-            (hidden_size * output_size)
+        required_weights = (input_size * hidden_size) + (hidden_size * output_size)
         genome_length = required_weights * 2  # 2 hex chars per weight
         return "".join(
             format(random.randint(0, 255), "02x") for _ in range(genome_length // 2)
         )
 
     def genome_to_color(self):
-        return tuple(int(self.genome[i: i + 2], 16) for i in (0, 2, 4))
+        return tuple(int(self.genome[i : i + 2], 16) for i in (0, 2, 4))
 
     def get_inputs(self, grid):
         return [
@@ -92,7 +92,7 @@ class Creature:
                 ),
                 "02x",
             )
-            for g in [genome[i: i + 2] for i in range(0, len(genome), 2)]
+            for g in [genome[i : i + 2] for i in range(0, len(genome), 2)]
         )
 
     @classmethod

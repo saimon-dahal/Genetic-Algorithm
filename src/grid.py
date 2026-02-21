@@ -1,6 +1,8 @@
 import random
-from creature import Creature
+
 import pygame
+
+from src.creature import Creature
 
 
 class Grid:
@@ -18,8 +20,9 @@ class Grid:
     def populate(self, num_creatures):
         for _ in range(num_creatures):
             while True:
-                x, y = random.randint(0, self.width - 1), random.randint(
-                    0, self.height - 1
+                x, y = (
+                    random.randint(0, self.width - 1),
+                    random.randint(0, self.height - 1),
                 )
                 if self.grid[y][x] is None:
                     creature = Creature(x, y, self.width)
@@ -43,8 +46,7 @@ class Grid:
         ]
 
         # calculate survival rate
-        self.survival_rate = len(surviving_creatures) / \
-            len(self.creatures) * 100
+        self.survival_rate = len(surviving_creatures) / len(self.creatures) * 100
         if not surviving_creatures:
             new_population = [
                 Creature(
@@ -61,12 +63,12 @@ class Grid:
                 child = Creature.create_offspring(parent1, parent2, self.width)
                 new_population.append(child)
 
-        self.grid = [[None for _ in range(self.width)]
-                     for _ in range(self.height)]
+        self.grid = [[None for _ in range(self.width)] for _ in range(self.height)]
         for creature in new_population:
             while True:
-                x, y = random.randint(0, self.width - 1), random.randint(
-                    0, self.height - 1
+                x, y = (
+                    random.randint(0, self.width - 1),
+                    random.randint(0, self.height - 1),
                 )
                 if self.grid[y][x] is None:
                     creature.x, creature.y = x, y
@@ -81,8 +83,7 @@ class Grid:
             pygame.draw.rect(
                 screen,
                 creature.color,
-                (creature.x * cell_size, creature.y *
-                 cell_size, cell_size, cell_size),
+                (creature.x * cell_size, creature.y * cell_size, cell_size, cell_size),
             )
 
     def get_population_density(self, x, y, radius=1):

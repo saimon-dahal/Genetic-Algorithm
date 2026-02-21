@@ -166,3 +166,6 @@ cython_debug/
 =======
 #.idea/
 >>>>>>> 73b4e24 (add: Baseline structure)
+
+# Dynaconf secrets
+config/.secrets.toml
