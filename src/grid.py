@@ -59,7 +59,11 @@ class Grid:
         else:
             new_population = []
             while len(new_population) < len(self.creatures):
-                parent1, parent2 = random.sample(surviving_creatures, 2)
+                # random.sample requires >= 2 elements; handle single-survivor edge case
+                if len(surviving_creatures) < 2:
+                    parent1 = parent2 = surviving_creatures[0]
+                else:
+                    parent1, parent2 = random.sample(surviving_creatures, 2)
                 child = Creature.create_offspring(parent1, parent2, self.width)
                 new_population.append(child)
 
@@ -91,8 +95,11 @@ class Grid:
         count = 0
         for dx in range(-radius, radius + 1):
             for dy in range(-radius, radius + 1):
+                if dx == 0 and dy == 0:
+                    continue  # exclude self from density count
                 nx, ny = x + dx, y + dy
                 if 0 <= nx < self.width and 0 <= ny < self.height:
                     if self.grid[ny][nx] is not None:
                         count += 1
-        return count / ((2 * radius + 1) ** 2)
+        total_cells = (2 * radius + 1) ** 2 - 1  # exclude center cell
+        return count / total_cells
