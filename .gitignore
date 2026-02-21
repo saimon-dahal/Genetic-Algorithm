@@ -169,3 +169,6 @@ cython_debug/
 
 # Dynaconf secrets
 config/.secrets.toml
+
+
+.DS_STORE
