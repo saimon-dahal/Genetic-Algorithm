@@ -37,8 +37,8 @@ class Creature:
             grid.get_population_density(self.x, self.y, radius=2),
             self.age / 100,  # Normalize age
             random.random(),
-            self.last_move_x / self.grid_size,
-            self.last_move_y / self.grid_size,
+            self.last_move_x,
+            self.last_move_y,
         ]
 
     def move(self, grid):
@@ -73,9 +73,9 @@ class Creature:
 
     @staticmethod
     def crossover(parent1, parent2):
-        crossover_point = (
-            random.randint(1, 7) * 4
-        )  # Ensure crossover at gene boundaries
+        # Each gene is 2 hex chars; pick a crossover boundary within the actual genome
+        num_genes = len(parent1.genome) // 2
+        crossover_point = random.randint(1, num_genes - 1) * 2
         child_genome = (
             parent1.genome[:crossover_point] + parent2.genome[crossover_point:]
         )
