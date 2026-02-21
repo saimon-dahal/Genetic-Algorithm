@@ -44,7 +44,7 @@ def main() -> None:
 
         if grid.generation > 0:
             survival_text = font.render(
-                f"Previous Gen Survival:{grid.survival_rate:.2f}%", True, (0, 0, 0)
+                f"Previous Gen Survival: {grid.survival_rate:.2f}%", True, (0, 0, 0)
             )
             screen.blit(survival_text, (10, 50))
 
